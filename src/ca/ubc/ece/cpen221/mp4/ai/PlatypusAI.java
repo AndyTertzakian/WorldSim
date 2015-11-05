@@ -16,13 +16,9 @@ import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
 
-/**
- * Your Fox AI.
- */
-public class FoxAI extends AbstractAI {
-	private int closest = 2; // max number; greater than fox's view range
+public class PlatypusAI extends AbstractAI {
 
-	public FoxAI() {
+	public PlatypusAI() {
 
 	}
 
@@ -37,7 +33,7 @@ public class FoxAI extends AbstractAI {
 		int southDistance = 0;
 		int eastDistance = 0;
 		int westDistance = 0;
-		int numRabbits = 0;
+		int numWater = 0;
 		HashMap<Item, Integer> surroundingsMap = new HashMap<Item, Integer>();
 		Set<Item> surroundingsList = world.searchSurroundings(animal);
 
@@ -47,22 +43,22 @@ public class FoxAI extends AbstractAI {
 
 		for (Item i : surroundingsMap.keySet()) {
 			if (surroundingsMap.get(i) == 1) {
-				if (i.getName().equals("Rabbit")
-						&& (animal.getMaxEnergy() - animal.getEnergy() >= i.getMeatCalories())) {
+				if (i.getName().equals("water")
+						&& (animal.getMaxEnergy() - animal.getEnergy() >= i.getPlantCalories())) {
 					return new EatCommand(animal, i);
 				}
 			} else {
-				if (i.getName().equals("Rabbit")) {
+				if (i.getName().equals("water")) {
 					northDistance += i.getLocation().getDistance(northLoc);
 					southDistance += i.getLocation().getDistance(southLoc);
 					eastDistance += i.getLocation().getDistance(eastLoc);
 					westDistance += i.getLocation().getDistance(westLoc);
-					numRabbits++;
+					numWater++;
 				}
 			}
 		}
 
-		if (numRabbits > 2 && animal.getEnergy() >= 100) {
+		if (numWater > 2 && animal.getEnergy() > 50) {
 			return new BreedCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 		}
 
