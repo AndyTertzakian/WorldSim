@@ -49,7 +49,8 @@ public class FoxAI extends AbstractAI {
 
 		for (Item i : surroundingsMap.keySet()) {
 			if (surroundingsMap.get(i) == 1) {
-				if (i.getName().equals("Rabbit")  && (animal.getMaxEnergy() - animal.getEnergy() >= i.getMeatCalories())) {
+				if (i.getName().equals("Rabbit")
+						&& (animal.getMaxEnergy() - animal.getEnergy() >= i.getMeatCalories())) {
 					return new EatCommand(animal, i);
 				}
 			} else {
@@ -62,25 +63,30 @@ public class FoxAI extends AbstractAI {
 				}
 			}
 		}
-		
-		if(numRabbits > 2 && animal.getEnergy() >= 100){
+
+		if (numRabbits > 2 && animal.getEnergy() >= 100) {
 			return new BreedCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 		}
-		
-		if(northDistance <= southDistance && northDistance <= eastDistance && northDistance <= westDistance){
-			if(Util.isLocationEmpty((World) world, northLoc)){
+
+		if (northDistance <= southDistance && northDistance <= eastDistance && northDistance <= westDistance) {
+			if (Util.isLocationEmpty((World) world, northLoc)) {
 				return new MoveCommand(animal, northLoc);
 			}
-		}else if(southDistance <= eastDistance && southDistance <= westDistance){
-			if(Util.isLocationEmpty((World) world, southLoc)){
+		} else if (southDistance <= eastDistance && southDistance <= westDistance) {
+			if (Util.isLocationEmpty((World) world, southLoc)) {
 				return new MoveCommand(animal, southLoc);
 			}
-		}else if(eastDistance <= westDistance){
-			if(Util.isLocationEmpty((World) world, eastLoc)){
+		} else if (eastDistance <= westDistance) {
+			if (Util.isLocationEmpty((World) world, eastLoc)) {
 				return new MoveCommand(animal, eastLoc);
 			}
-		}else if(Util.isLocationEmpty((World) world, westLoc)){
+		} else if (Util.isLocationEmpty((World) world, westLoc)) {
 			return new MoveCommand(animal, westLoc);
+		}
+
+		if (!Util.isLocationEmpty((World) world, northLoc) && !Util.isLocationEmpty((World) world, southLoc)
+				&& !Util.isLocationEmpty((World) world, eastLoc) && !Util.isLocationEmpty((World) world, westLoc)) {
+			return new WaitCommand();
 		}
 
 		return new MoveCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
