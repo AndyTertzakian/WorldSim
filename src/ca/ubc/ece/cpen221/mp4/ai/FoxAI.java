@@ -1,7 +1,7 @@
 package ca.ubc.ece.cpen221.mp4.ai;
 
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
+import java.util.Map.Entry;
 
 import ca.ubc.ece.cpen221.mp4.ArenaWorld;
 import ca.ubc.ece.cpen221.mp4.Direction;
@@ -28,9 +28,62 @@ public class FoxAI extends AbstractAI {
 
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
-		// TODO: Change this. Implement your own AI to make decisions regarding
-		// the next action.
-		return new WaitCommand();
+
+		Location northLoc = new Location(animal.getLocation(), Direction.NORTH);
+		Location southLoc = new Location(animal.getLocation(), Direction.SOUTH);
+		Location eastLoc = new Location(animal.getLocation(), Direction.EAST);
+		Location westLoc = new Location(animal.getLocation(), Direction.WEST);
+		int northDistance = 0;
+		int southDistance = 0;
+		int eastDistance = 0;
+		int westDistance = 0;
+		int width = world.getWidth();
+		int height = world.getHeight();
+		int numRabbits = 0;
+		HashMap<Item, Integer> surroundingsMap = new HashMap<Item, Integer>();
+		Set<Item> surroundingsList = world.searchSurroundings(animal);
+
+		for (Item i : surroundingsList) {
+			surroundingsMap.put(i, i.getLocation().getDistance(animal.getLocation()));
+		}
+
+		for (Item i : surroundingsMap.keySet()) {
+			if (surroundingsMap.get(i) == 1) {
+				if (i.getName().equals("Rabbit")  && (animal.getMaxEnergy() - animal.getEnergy() >= i.getMeatCalories())) {
+					return new EatCommand(animal, i);
+				}
+			} else {
+				if (i.getName().equals("Rabbit")) {
+					northDistance += i.getLocation().getDistance(northLoc);
+					southDistance += i.getLocation().getDistance(southLoc);
+					eastDistance += i.getLocation().getDistance(eastLoc);
+					westDistance += i.getLocation().getDistance(westLoc);
+					numRabbits++;
+				}
+			}
+		}
+		
+		if(numRabbits > 2 && animal.getEnergy() >= 100){
+			return new BreedCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
+		}
+		
+		if(northDistance <= southDistance && northDistance <= eastDistance && northDistance <= westDistance){
+			if(Util.isLocationEmpty((World) world, northLoc)){
+				return new MoveCommand(animal, northLoc);
+			}
+		}else if(southDistance <= eastDistance && southDistance <= westDistance){
+			if(Util.isLocationEmpty((World) world, southLoc)){
+				return new MoveCommand(animal, southLoc);
+			}
+		}else if(eastDistance <= westDistance){
+			if(Util.isLocationEmpty((World) world, eastLoc)){
+				return new MoveCommand(animal, eastLoc);
+			}
+		}else if(Util.isLocationEmpty((World) world, westLoc)){
+			return new MoveCommand(animal, westLoc);
+		}
+
+		return new MoveCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 	}
 
 }
