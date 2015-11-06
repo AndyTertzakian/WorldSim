@@ -1,6 +1,7 @@
 package ca.ubc.ece.cpen221.mp4.ai;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Set;
 
 import ca.ubc.ece.cpen221.mp4.ArenaWorld;

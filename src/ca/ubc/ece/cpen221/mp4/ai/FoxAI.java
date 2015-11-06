@@ -20,8 +20,7 @@ import ca.ubc.ece.cpen221.mp4.items.animals.*;
  * Your Fox AI.
  */
 public class FoxAI extends AbstractAI {
-	private int closest = 2; // max number; greater than fox's view range
-
+	
 	public FoxAI() {
 
 	}
@@ -61,30 +60,30 @@ public class FoxAI extends AbstractAI {
 				}
 			}
 		}
+		
+		if (!Util.isLocationEmpty((World) world, northLoc) && !Util.isLocationEmpty((World) world, southLoc)
+				&& !Util.isLocationEmpty((World) world, eastLoc) && !Util.isLocationEmpty((World) world, westLoc)) {
+			return new WaitCommand();
+		}
 
 		if (numRabbits > 2 && animal.getEnergy() >= 100) {
 			return new BreedCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 		}
 
-		if (northDistance <= southDistance && northDistance <= eastDistance && northDistance <= westDistance) {
+		if (northDistance < southDistance && northDistance < eastDistance && northDistance < westDistance) {
 			if (Util.isLocationEmpty((World) world, northLoc)) {
 				return new MoveCommand(animal, northLoc);
 			}
-		} else if (southDistance <= eastDistance && southDistance <= westDistance) {
+		} else if (southDistance < eastDistance && southDistance < westDistance) {
 			if (Util.isLocationEmpty((World) world, southLoc)) {
 				return new MoveCommand(animal, southLoc);
 			}
-		} else if (eastDistance <= westDistance) {
+		} else if (eastDistance < westDistance) {
 			if (Util.isLocationEmpty((World) world, eastLoc)) {
 				return new MoveCommand(animal, eastLoc);
 			}
-		} else if (Util.isLocationEmpty((World) world, westLoc)) {
+		} else if (westDistance < northDistance && Util.isLocationEmpty((World) world, westLoc)) {
 			return new MoveCommand(animal, westLoc);
-		}
-
-		if (!Util.isLocationEmpty((World) world, northLoc) && !Util.isLocationEmpty((World) world, southLoc)
-				&& !Util.isLocationEmpty((World) world, eastLoc) && !Util.isLocationEmpty((World) world, westLoc)) {
-			return new WaitCommand();
 		}
 
 		return new MoveCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));

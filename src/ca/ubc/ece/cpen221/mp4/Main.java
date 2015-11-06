@@ -32,6 +32,7 @@ public class Main {
 	static final int INITIAL_BEARS = INITIAL_GRASS / 40;
 	static final int INITIAL_HYENAS = INITIAL_GRASS / 32;
 	static final int INITIAL_PLATYPUSSES = INITIAL_GRASS / 20;
+	static final int INITIAL_ALBATROSS = INITIAL_GRASS / 150;
 	static final int INITIAL_CARS = INITIAL_GRASS / 100;
 	static final int INITIAL_TRUCKS = INITIAL_GRASS / 150;
 	static final int INITIAL_MOTORCYCLES = INITIAL_GRASS / 64;
@@ -64,6 +65,7 @@ public class Main {
 		addRabbits(world);
 		addFoxes(world);
 		addPlatypusses(world);
+		addAlbatross(world);
 	}
 
 	private void addGrass(World world) {
@@ -96,6 +98,16 @@ public class Main {
 			Fox fox = new Fox(foxAI, loc);
 			world.addItem(fox);
 			world.addActor(fox);
+		}
+	}
+	
+	private void addAlbatross(World world){
+		AlbatrossAI albatrossAI = new AlbatrossAI();
+		for(int i = 0; i < INITIAL_ALBATROSS; i++){
+			Location loc = Util.getRandomEmptyLocation(world);
+			Albatross albatross = new Albatross(albatrossAI, loc);
+			world.addItem(albatross);
+			world.addActor(albatross);
 		}
 	}
 
