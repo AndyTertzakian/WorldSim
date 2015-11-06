@@ -152,8 +152,8 @@ public class RabbitAI extends AbstractAI {
 			return max.getKey();
 		return null;
 	}
-
-	private Location getMinDistLocation(Map<Location, Double> locations) {
+	
+	public Location getMinDistLocation(Map<Location, Double> locations) {
 
 		Map.Entry<Location, Double> min = null;
 		if (locations.isEmpty()) {
