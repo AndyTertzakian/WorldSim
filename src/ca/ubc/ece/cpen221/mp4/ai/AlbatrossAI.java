@@ -89,15 +89,19 @@ public class AlbatrossAI extends AbstractAI {
 
 		if (nextEatFox != null && animal.getEnergy() < (animal.getMaxEnergy() - nextEatFox.getMeatCalories())) {
 			return new EatCommand(animal, nextEatFox);
-		} else if (nextEatPlat != null && animal.getEnergy() < (animal.getMaxEnergy() - nextEatFox.getMeatCalories())) {
-			return new EatCommand(animal, nextEatPlat);
 		} else
-			if (nextEatWater != null && animal.getEnergy() < (animal.getMaxEnergy() - nextEatFox.getMeatCalories())) {
+			if (nextEatPlat != null && animal.getEnergy() < (animal.getMaxEnergy() - nextEatPlat.getMeatCalories())) {
+			return new EatCommand(animal, nextEatPlat);
+		} else if (nextEatWater != null
+				&& animal.getEnergy() < (animal.getMaxEnergy() - nextEatWater.getMeatCalories())) {
 			return new EatCommand(animal, nextEatWater);
 		}
 
 		if (totalDistance != 0) {
 			int travelDistance = totalDistance / numItems;
+			if(travelDistance > animal.getMovingRange()){
+				travelDistance = animal.getMovingRange();
+			}
 			directions.put(Direction.NORTH, north);
 			directions.put(Direction.SOUTH, south);
 			directions.put(Direction.EAST, east);
@@ -145,12 +149,46 @@ public class AlbatrossAI extends AbstractAI {
 				Double distRatio = (double) (distance1 / (distance1 + distance2));
 				if (direction1.equals(Direction.WEST) || direction1.equals(Direction.EAST)) {
 					Double xVal = travelDistance * distRatio;
-					x = xVal.intValue();
-					y = travelDistance - x;
+					if (animal.getLocation().getX() + xVal.intValue() > world.getWidth()
+							&& direction1.equals(Direction.EAST)) {
+						x = world.getWidth() - animal.getLocation().getX();
+					} else if (animal.getLocation().getX() - xVal.intValue() < 0 && direction1.equals(Direction.WEST)) {
+						x = animal.getLocation().getX();
+					} else {
+						x = xVal.intValue();
+					}
+					if (animal.getLocation().getY() + (travelDistance - x) > world.getHeight()
+							&& direction2.equals(Direction.SOUTH)) {
+						y = world.getHeight() - animal.getLocation().getY();
+					} else if (animal.getLocation().getY() - (travelDistance - x) < 0
+							&& direction2.equals(Direction.NORTH)) {
+						y = animal.getLocation().getY();
+					} else {
+						y = travelDistance - x;
+					}
 				} else {
+					Direction temp = direction2;
+					direction2 = direction1;
+					direction1 = temp;
 					Double yVal = travelDistance * distRatio;
-					y = yVal.intValue();
-					x = travelDistance - y;
+					if (animal.getLocation().getY() + yVal.intValue() > world.getHeight()
+							&& direction1.equals(Direction.SOUTH)) {
+						y = world.getHeight() - animal.getLocation().getY();
+					} else
+						if (animal.getLocation().getY() - yVal.intValue() < 0 && direction2.equals(Direction.NORTH)) {
+						y = animal.getLocation().getY();
+					} else {
+						y = yVal.intValue();
+					}
+					if (animal.getLocation().getX() + (travelDistance - y) > world.getWidth()
+							&& direction2.equals(Direction.EAST)) {
+						x = world.getWidth() - animal.getLocation().getX();
+					} else if (animal.getLocation().getX() - (travelDistance - y) < 0
+							&& direction2.equals(Direction.WEST)) {
+						x = animal.getLocation().getX();
+					} else {
+						x = travelDistance - y;
+					}
 				}
 
 				for (int i = 0; i < x; i++) {
@@ -167,9 +205,10 @@ public class AlbatrossAI extends AbstractAI {
 
 			if (Util.isValidLocation(world, finalLoc) && Util.isLocationEmpty((World) world, finalLoc)) {
 				return new MoveCommand(animal, finalLoc);
-			} //else {
-				//return new MoveCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
-		//	}
+			} else {
+				return new MoveCommand(animal,
+						Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
+			}
 
 		}
 
