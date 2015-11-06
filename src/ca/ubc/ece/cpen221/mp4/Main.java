@@ -5,6 +5,7 @@ import javax.swing.SwingUtilities;
 import ca.ubc.ece.cpen221.mp4.ai.*;
 import ca.ubc.ece.cpen221.mp4.items.Gardener;
 import ca.ubc.ece.cpen221.mp4.items.Grass;
+import ca.ubc.ece.cpen221.mp4.items.Merlin;
 import ca.ubc.ece.cpen221.mp4.items.Rain;
 import ca.ubc.ece.cpen221.mp4.items.Water;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
@@ -33,6 +34,7 @@ public class Main {
 	static final int INITIAL_HYENAS = INITIAL_GRASS / 32;
 	static final int INITIAL_PLATYPUSSES = INITIAL_GRASS / 20;
 	static final int INITIAL_ALBATROSS = INITIAL_GRASS / 50;
+	static final int INITIAL_CHARIZARD = 1;
 	static final int INITIAL_CARS = INITIAL_GRASS / 100;
 	static final int INITIAL_TRUCKS = INITIAL_GRASS / 150;
 	static final int INITIAL_MOTORCYCLES = INITIAL_GRASS / 64;
@@ -60,12 +62,14 @@ public class Main {
 		addWater(world);
 		world.addActor(new Gardener());
 		world.addActor(new Rain());
+		world.addActor(new Merlin());
 
 		addGnats(world);
 		addRabbits(world);
 		addFoxes(world);
 		addPlatypusses(world);
 		addAlbatross(world);
+		addCharizard(world);
 	}
 
 	private void addGrass(World world) {
@@ -128,6 +132,16 @@ public class Main {
 			Platypus platypus = new Platypus(platypusAI, loc);
 			world.addItem(platypus);
 			world.addActor(platypus);
+		}
+	}
+	
+	private void addCharizard(World world){
+		CharizardAI charizardAI = new CharizardAI();
+		for(int i = 0; i < INITIAL_CHARIZARD; i++){
+			Location loc = Util.getRandomEmptyLocation(world);
+			Charizard charizard = new Charizard(charizardAI, loc);
+			world.addItem(charizard);
+			world.addActor(charizard);
 		}
 	}
 }

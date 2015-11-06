@@ -34,7 +34,7 @@ public class Albatross implements ArenaAnimal {
 	 * @param albatrossAI
 	 *            the AI designed for albatrosses
 	 * @param initialLocation
-	 *            the location where this Fox will be created
+	 *            the location where this albatross will be created
 	 */
 	public Albatross(AI albatrossAI, Location initialLocation) {
 		this.ai = albatrossAI;
