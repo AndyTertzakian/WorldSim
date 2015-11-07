@@ -34,6 +34,7 @@ public class PacmanAI extends AbstractAI {
 		
 		if(foundFood > 7){
 			direction = Util.getRandomDirection();
+			foundFood = 0;
 		}
 
 		if (!Util.isValidLocation(world, new Location(animal.getLocation(), direction))) {

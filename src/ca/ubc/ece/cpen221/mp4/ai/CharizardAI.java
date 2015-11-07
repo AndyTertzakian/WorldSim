@@ -39,7 +39,7 @@ public class CharizardAI extends AbstractAI {
 			surroundings.put(i, i.getLocation().getDistance(animal.getLocation()));
 		}
 
-		if (animal.getEnergy() < animal.getMaxEnergy() / 2) {
+		if (animal.getEnergy() < animal.getMaxEnergy() - 100) {
 			int x = animal.getLocation().getX();
 			int y = animal.getLocation().getY();
 			Location finalLoc = animal.getLocation();
