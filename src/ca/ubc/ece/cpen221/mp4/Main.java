@@ -35,6 +35,7 @@ public class Main {
 	static final int INITIAL_PLATYPUSSES = INITIAL_GRASS / 20;
 	static final int INITIAL_ALBATROSS = INITIAL_GRASS / 50;
 	static final int INITIAL_CHARIZARD = 1;
+	static final int INITIAL_PACMAN = 1;
 	static final int INITIAL_CARS = INITIAL_GRASS / 100;
 	static final int INITIAL_TRUCKS = INITIAL_GRASS / 150;
 	static final int INITIAL_MOTORCYCLES = INITIAL_GRASS / 64;
@@ -70,6 +71,7 @@ public class Main {
 		addPlatypusses(world);
 		addAlbatross(world);
 		addCharizard(world);
+		addPacman(world);
 	}
 
 	private void addGrass(World world) {
@@ -142,6 +144,16 @@ public class Main {
 			Charizard charizard = new Charizard(charizardAI, loc);
 			world.addItem(charizard);
 			world.addActor(charizard);
+		}
+	}
+	
+	private void addPacman(World world){
+		PacmanAI pacmanAI = new PacmanAI();
+		for(int i = 0; i < INITIAL_PACMAN; i++){
+			Location loc = Util.getRandomEmptyLocation(world);
+			Pacman pacman = new Pacman(pacmanAI, loc);
+			world.addItem(pacman);
+			world.addActor(pacman);
 		}
 	}
 }

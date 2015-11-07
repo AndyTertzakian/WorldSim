@@ -41,10 +41,10 @@ public class AlbatrossAI extends AbstractAI {
 
 		for (Item i : surroundingsList) {
 			int distance = i.getLocation().getDistance(animal.getLocation());
-			//if (distance <= animal.getViewRange()) {
-				totalDistance += i.getLocation().getDistance(animal.getLocation());
-				numItems++;
-			//}
+
+			totalDistance += distance;
+			numItems++;
+
 			Direction direction = Util.getDirectionTowards(animal.getLocation(), i.getLocation());
 			surroundingsMap.put(i, distance);
 			if (i.getName().equals("Fox")) {
@@ -59,8 +59,7 @@ public class AlbatrossAI extends AbstractAI {
 				} else {
 					west += 3;
 				}
-			}
-			if (i.getName().equals("Platypus")) {
+			} else if (i.getName().equals("Platypus")) {
 				if (distance == 1) {
 					nextEatPlat = i;
 				} else if (direction.toString().equals("NORTH")) {
@@ -72,8 +71,7 @@ public class AlbatrossAI extends AbstractAI {
 				} else {
 					west += 2;
 				}
-			}
-			if (i.getName().equals("water")) {
+			} else if (i.getName().equals("water")) {
 				if (distance == 1) {
 					nextEatWater = i;
 				} else if (direction.toString().equals("NORTH")) {
@@ -100,7 +98,7 @@ public class AlbatrossAI extends AbstractAI {
 
 		if (totalDistance != 0) {
 			int travelDistance = totalDistance / numItems;
-			if(travelDistance > animal.getMovingRange()){
+			if (travelDistance > animal.getMovingRange()) {
 				travelDistance = animal.getMovingRange();
 			}
 			directions.put(Direction.NORTH, north);
