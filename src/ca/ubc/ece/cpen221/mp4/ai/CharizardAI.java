@@ -47,7 +47,7 @@ public class CharizardAI extends AbstractAI {
 
 				if (surroundings.get(i) == 1 && i.getName().equals("mana")) {
 					return new EatCommand(animal, i);
-				} else if (i.getName().equals("mana") && Util.isLocationEmpty((World) world, adjacent)) {
+				} else if (i.getName().equals("mana") && this.isLocationEmpty(world, animal,adjacent)) {
 					return new MoveCommand(animal, adjacent);
 				} else if (x < width / 2 && y < height / 2) {
 					for (int d = 0; d < animal.getViewRange(); d++) {
@@ -66,7 +66,7 @@ public class CharizardAI extends AbstractAI {
 						finalLoc = new Location(finalLoc, Direction.NORTH);
 					}
 				}
-				if (Util.isValidLocation((World) world, finalLoc) && Util.isLocationEmpty((World) world, finalLoc)
+				if (Util.isValidLocation((World) world, finalLoc) && this.isLocationEmpty(world, animal, finalLoc)
 						&& finalLoc.getDistance(animal.getLocation()) <= animal.getViewRange()) {
 					return new MoveCommand(animal, finalLoc);
 				}

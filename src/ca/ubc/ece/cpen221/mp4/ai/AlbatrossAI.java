@@ -40,15 +40,14 @@ public class AlbatrossAI extends AbstractAI {
 		Map<Direction, Integer> directions = new HashMap<Direction, Integer>();
 
 		for (Item i : surroundingsList) {
-			int distance = i.getLocation().getDistance(animal.getLocation());
-			//if (distance <= animal.getViewRange()) {
+			if (i.getLocation().getDistance(animal.getLocation()) <= animal.getViewRange()) {
 				totalDistance += i.getLocation().getDistance(animal.getLocation());
 				numItems++;
-			//}
+			}
 			Direction direction = Util.getDirectionTowards(animal.getLocation(), i.getLocation());
-			surroundingsMap.put(i, distance);
+			surroundingsMap.put(i, i.getLocation().getDistance(animal.getLocation()));
 			if (i.getName().equals("Fox")) {
-				if (distance == 1) {
+				if (i.getLocation().getDistance(animal.getLocation()) == 1) {
 					nextEatFox = i;
 				} else if (direction.toString().equals("NORTH")) {
 					north += 3;
@@ -61,7 +60,7 @@ public class AlbatrossAI extends AbstractAI {
 				}
 			}
 			if (i.getName().equals("Platypus")) {
-				if (distance == 1) {
+				if (i.getLocation().getDistance(animal.getLocation()) == 1) {
 					nextEatPlat = i;
 				} else if (direction.toString().equals("NORTH")) {
 					north += 2;
@@ -74,7 +73,7 @@ public class AlbatrossAI extends AbstractAI {
 				}
 			}
 			if (i.getName().equals("water")) {
-				if (distance == 1) {
+				if (i.getLocation().getDistance(animal.getLocation()) == 1) {
 					nextEatWater = i;
 				} else if (direction.toString().equals("NORTH")) {
 					north += 1;
@@ -100,7 +99,7 @@ public class AlbatrossAI extends AbstractAI {
 
 		if (totalDistance != 0) {
 			int travelDistance = totalDistance / numItems;
-			if(travelDistance > animal.getMovingRange()){
+			if (travelDistance > animal.getMovingRange()) {
 				travelDistance = animal.getMovingRange();
 			}
 			directions.put(Direction.NORTH, north);
@@ -204,7 +203,7 @@ public class AlbatrossAI extends AbstractAI {
 				}
 			}
 
-			if (Util.isValidLocation(world, finalLoc) && Util.isLocationEmpty((World) world, finalLoc)) {
+			if (Util.isValidLocation(world, finalLoc) && this.isLocationEmpty(world, animal, finalLoc)) {
 				return new MoveCommand(animal, finalLoc);
 			} else {
 				return new MoveCommand(animal,
