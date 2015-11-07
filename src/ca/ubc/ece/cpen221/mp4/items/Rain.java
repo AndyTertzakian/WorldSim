@@ -10,7 +10,7 @@ import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
 /**
  * The Rain does not show up in the world, but it creates a {@link Water} at
  * a random location each step if more than three quarters of the world's locations are
- * empty. Don't worry, Water doesn't just appear...
+ * empty. Also extinguishes Charizard's fire.  Don't worry, Water doesn't just appear...
  */
 public class Rain implements Actor {
 
@@ -26,6 +26,9 @@ public class Rain implements Actor {
 		int occupiedLocations = 0;
 		for (Item item : world.getItems()) {
 			occupiedLocations++;
+			if(item.getName().equals("fire")){
+				item.loseEnergy(2);
+			}
 		}
 
 		// If the number of occupied locations is less than a quarter of the total
