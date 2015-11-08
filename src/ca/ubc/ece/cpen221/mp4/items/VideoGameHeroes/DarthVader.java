@@ -18,12 +18,13 @@ public class DarthVader implements ArenaHero {
 	private static final int VIEW_RANGE = 20;
 	private static final int MIN_BREEDING_ENERGY = 150;
 	private static final int COOLDOWN = 10;
-	private static final ImageIcon charizardImage = Util.loadImage("DarthVader.gif");
+	private static ImageIcon vaderImage = Util.loadImage("DarthVader1.gif");
 
 	private final AI ai;
 
 	private Location location;
 	private int energy;
+	private boolean isOpen;
 
 	/**
 	 * Create a new {@link DarthVader} with an {@link AI} at
@@ -40,6 +41,15 @@ public class DarthVader implements ArenaHero {
 		this.location = initialLocation;
 
 		this.energy = INITIAL_ENERGY;
+		this.isOpen = true;
+	}
+	
+	public void updatePicture() {
+		if (isOpen)
+			vaderImage = Util.loadImage("DarthVader2.gif");
+		else
+			vaderImage = Util.loadImage("DarthVader1.gif");
+		this.isOpen = !this.isOpen;
 	}
 
 	@Override
@@ -73,12 +83,12 @@ public class DarthVader implements ArenaHero {
 
 	@Override
 	public ImageIcon getImage() {
-		return charizardImage;
+		return vaderImage;
 	}
 
 	@Override
 	public String getName() {
-		return "Charizard";
+		return "DarthVader";
 	}
 
 	@Override
@@ -119,7 +129,7 @@ public class DarthVader implements ArenaHero {
 	@Override
 	public Command getNextAction(World world) {
 		Command nextAction = ai.getNextAction(world, this);
-		this.energy--; // Loses 1 energy regardless of action.
+		updatePicture();
 		return nextAction;
 	}
 

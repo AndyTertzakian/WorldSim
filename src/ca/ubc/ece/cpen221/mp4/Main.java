@@ -67,7 +67,7 @@ public class Main {
 		world.addActor(new Rain());
 		world.addActor(new Merlin());
 
-		//addVader(world);
+		addVader(world);
 		addCharizard(world);
 		addGnats(world);
 		addRabbits(world);
