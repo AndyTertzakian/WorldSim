@@ -36,7 +36,7 @@ public class PlatypusAI extends AbstractAI {
 		int numWater = 0;
 		HashMap<Item, Integer> surroundingsMap = new HashMap<Item, Integer>();
 		Set<Item> surroundingsList = world.searchSurroundings(animal);
-
+		
 		for (Item i : surroundingsList) {
 			surroundingsMap.put(i, i.getLocation().getDistance(animal.getLocation()));
 		}

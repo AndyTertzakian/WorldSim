@@ -73,27 +73,35 @@ public class RabbitAI extends AbstractAI {
 					nextEat = item;
 				}
 			}
+			int[] asdf = new int[4];
+			Arrays.sort(asdf);
 		}
 
 		if (!Util.isLocationEmpty((World) world, northLoc) && !Util.isLocationEmpty((World) world, southLoc)
 				&& !Util.isLocationEmpty((World) world, eastLoc) && !Util.isLocationEmpty((World) world, westLoc)) {
 			return new WaitCommand();
 		}
-		
+
 		if (foxFound) {
 			foxAvgs = getAverageDists(locations, surroundings, "fox");
 			nextMoveLocation = getMaxDistLocation(foxAvgs);
-			if (nextMoveLocation != null && minFoxCoolDown >= 1 || closestFoxDist < 2)
+			if (nextMoveLocation != null && minFoxCoolDown <= 1 || closestFoxDist < 2)
 				return new MoveCommand(animal, nextMoveLocation);
+			if (animal.getEnergy() >= animal.getMaxEnergy() - 10)
+				return new BreedCommand(animal, nextMoveLocation);
 		}
 		if (grassFound) {
+
 			grassAvgs = getAverageDists(locations, surroundings, "grass");
 			nextMoveLocation = getMinDistLocation(grassAvgs);
-			if (nextEat != null)
+
+			if (animal.getEnergy() >= animal.getMaxEnergy() - 10)
+				return new BreedCommand(animal, nextMoveLocation);
+			if (nextEat != null && animal.getEnergy() <= 45)
 				return new EatCommand(animal, nextEat);
-			else if (nextMoveLocation != null && animal.getEnergy() <= 55)
+			else if (nextMoveLocation != null)
 				return new MoveCommand(animal, nextMoveLocation);
-			else if (animal.getEnergy() >= 20) {
+			else if (animal.getEnergy() >= animal.getMinimumBreedingEnergy()) {
 				return new BreedCommand(animal, nextMoveLocation);
 			}
 		}
@@ -142,7 +150,6 @@ public class RabbitAI extends AbstractAI {
 		}
 		if (max.getKey() != null)
 			return max.getKey();
-
 		return null;
 	}
 	
