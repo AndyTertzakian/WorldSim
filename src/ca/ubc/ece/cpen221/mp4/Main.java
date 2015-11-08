@@ -29,6 +29,7 @@ public class Main {
 	static final int INITIAL_GNATS = INITIAL_GRASS / 4;
 	static final int INITIAL_RABBITS = INITIAL_GRASS / 4;
 	static final int INITIAL_FOXES = INITIAL_GRASS / 32;
+	static final int INITIAL_FROGS = INITIAL_GRASS / 32;
 	static final int INITIAL_TIGERS = INITIAL_GRASS / 32;
 	static final int INITIAL_BEARS = INITIAL_GRASS / 40;
 	static final int INITIAL_HYENAS = INITIAL_GRASS / 32;
@@ -66,6 +67,7 @@ public class Main {
 		world.addActor(new Merlin());
 
 		addGnats(world);
+		addFrogs(world);
 		addRabbits(world);
 		addFoxes(world);
 		addPlatypusses(world);
@@ -154,6 +156,16 @@ public class Main {
 			Pacman pacman = new Pacman(pacmanAI, loc);
 			world.addItem(pacman);
 			world.addActor(pacman);
+		}
+	}
+	
+	private void addFrogs(World world){
+		FrogAI frogAI = new FrogAI();
+		for(int i = 0; i < INITIAL_FROGS; i++){
+			Location loc = Util.getRandomEmptyLocation(world);
+			Frog frog = new Frog(frogAI, loc);
+			world.addItem(frog);
+			world.addActor(frog);
 		}
 	}
 }

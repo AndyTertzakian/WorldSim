@@ -144,7 +144,7 @@ public class AlbatrossAI extends AbstractAI {
 			int y;
 			Location finalLoc = animal.getLocation();
 
-			if (optimal == null) {
+			if (optimal == null && distance1 != 0 && distance2 != 0) {
 				Double distRatio = (double) (distance1 / (distance1 + distance2));
 				if (direction1.equals(Direction.WEST) || direction1.equals(Direction.EAST)) {
 					Double xVal = travelDistance * distRatio;
@@ -196,7 +196,7 @@ public class AlbatrossAI extends AbstractAI {
 				for (int i = 0; i < y; i++) {
 					finalLoc = new Location(finalLoc, direction2);
 				}
-			} else {
+			} else if(optimal != null) {
 				for (int i = 0; i < travelDistance; i++) {
 					finalLoc = new Location(finalLoc, optimal);
 				}

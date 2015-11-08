@@ -39,7 +39,7 @@ public class CharizardAI extends AbstractAI {
 			surroundings.put(i, i.getLocation().getDistance(animal.getLocation()));
 		}
 
-		if (animal.getEnergy() < animal.getMaxEnergy() - 100) {
+		if (animal.getEnergy() < animal.getMaxEnergy() / 2) {
 			int x = animal.getLocation().getX();
 			int y = animal.getLocation().getY();
 			Location finalLoc = animal.getLocation();
@@ -163,7 +163,7 @@ public class CharizardAI extends AbstractAI {
 			int y;
 			Location finalLoc = animal.getLocation();
 
-			if (optimalPrime == null) {
+			if (optimalPrime == null && distance1 !=0 && distance2 != 0) {
 				Double distRatio = (double) (distance1 / (distance1 + distance2));
 				if (direction1.equals(Direction.WEST) || direction1.equals(Direction.EAST)) {
 					Double xVal = travelDistance * distRatio;
@@ -215,7 +215,7 @@ public class CharizardAI extends AbstractAI {
 				for (int i = 0; i < y; i++) {
 					finalLoc = new Location(finalLoc, direction2);
 				}
-			} else {
+			} else if(optimalPrime != null){
 				for (int i = 0; i < travelDistance; i++) {
 					finalLoc = new Location(finalLoc, optimalPrime);
 				}
