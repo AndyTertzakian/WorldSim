@@ -9,7 +9,6 @@ public interface ArenaVehicle extends LivingItem{
 	int getSpeed();
 
 	int getMovingRange(int speed);
-	
-	int getAcceleration();
 
+	int getAcceleration();
 }

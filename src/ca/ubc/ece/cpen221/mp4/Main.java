@@ -77,12 +77,12 @@ public class Main {
 		addVader(world);
 		addCharizard(world);
 		addGnats(world);
-		addFrogs(world);
 		addRabbits(world);
 		addFoxes(world);
 		addPlatypusses(world);
-		addAlbatross(world);
+		addAlbatross(world);	
 		addPacman(world);
+		addFrogs(world);
 	}
 
 	private void addGrass(World world) {
@@ -91,9 +91,10 @@ public class Main {
 			world.addItem(new Grass(loc));
 		}
 	}
-
-	private void addWater(World world) {
-		for (int i = 0; i < INITIAL_WATER; i++) {
+	
+	private void addWater(World world){
+		for(int i = 0; i < INITIAL_WATER; i++){
+			
 			Location loc = Util.getRandomEmptyLocation(world);
 			world.addItem(new Water(loc));
 		}
@@ -117,10 +118,10 @@ public class Main {
 			world.addActor(fox);
 		}
 	}
-
-	private void addAlbatross(World world) {
+	
+	private void addAlbatross(World world){
 		AlbatrossAI albatrossAI = new AlbatrossAI();
-		for (int i = 0; i < INITIAL_ALBATROSS; i++) {
+		for(int i = 0; i < INITIAL_ALBATROSS; i++){
 			Location loc = Util.getRandomEmptyLocation(world);
 			Albatross albatross = new Albatross(albatrossAI, loc);
 			world.addItem(albatross);
@@ -137,54 +138,54 @@ public class Main {
 			world.addActor(rabbit);
 		}
 	}
-
-	private void addPlatypusses(World world) {
+	
+	private void addFrogs(World world){
+		FrogAI frogAI = new FrogAI();
+		for(int i = 0; i < INITIAL_FROGS; i++){
+			Location loc = Util.getRandomEmptyLocation(world);
+			Frog frog = new Frog(frogAI, loc);
+			world.addItem(frog);
+			world.addActor(frog);
+		}
+	}
+	
+	private void addPlatypusses(World world){
 		PlatypusAI platypusAI = new PlatypusAI();
-		for (int i = 0; i < INITIAL_PLATYPUSSES; i++) {
+		for(int i = 0; i < INITIAL_PLATYPUSSES; i++){
 			Location loc = Util.getRandomEmptyLocation(world);
 			Platypus platypus = new Platypus(platypusAI, loc);
 			world.addItem(platypus);
 			world.addActor(platypus);
 		}
 	}
-
-	private void addCharizard(World world) {
+	
+	private void addCharizard(World world){
 		CharizardAI charizardAI = new CharizardAI();
-		for (int i = 0; i < INITIAL_CHARIZARD; i++) {
+		for(int i = 0; i < INITIAL_CHARIZARD; i++){
 			Location loc = Util.getRandomEmptyLocation(world);
 			Charizard charizard = new Charizard(charizardAI, loc);
 			world.addItem(charizard);
 			world.addActor(charizard);
 		}
 	}
-
-	private void addPacman(World world) {
+	
+	private void addPacman(World world){
 		PacmanAI pacmanAI = new PacmanAI();
-		for (int i = 0; i < INITIAL_PACMAN; i++) {
+		for(int i = 0; i < INITIAL_PACMAN; i++){
 			Location loc = Util.getRandomEmptyLocation(world);
 			Pacman pacman = new Pacman(pacmanAI, loc);
 			world.addItem(pacman);
 			world.addActor(pacman);
 		}
 	}
-
-	private void addVader(World world) {
+	
+	private void addVader(World world){
 		VaderAI vaderAI = new VaderAI();
-		for (int i = 0; i < INITIAL_VADER; i++) {
+		for(int i = 0; i < INITIAL_VADER; i++){
 			Location loc = Util.getRandomEmptyLocation(world);
 			DarthVader darthVader = new DarthVader(vaderAI, loc);
 			world.addItem(darthVader);
 			world.addActor(darthVader);
-		}
-	}
-
-	private void addFrogs(World world) {
-		FrogAI frogAI = new FrogAI();
-		for (int i = 0; i < INITIAL_FROGS; i++) {
-			Location loc = Util.getRandomEmptyLocation(world);
-			Frog frog = new Frog(frogAI, loc);
-			world.addItem(frog);
-			world.addActor(frog);
 		}
 	}
 }
