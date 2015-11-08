@@ -164,7 +164,7 @@ public class CharizardAI extends AbstractAI {
 			int y;
 			Location finalLoc = hero.getLocation();
 
-			if (optimalPrime == null) {
+			if (optimalPrime == null && distance1 != 0 && distance2 != 0) {
 				Double distRatio = (double) (distance1 / (distance1 + distance2));
 				if (direction1.equals(Direction.WEST) || direction1.equals(Direction.EAST)) {
 					Double xVal = travelDistance * distRatio;
@@ -215,7 +215,7 @@ public class CharizardAI extends AbstractAI {
 				for (int i = 0; i < y; i++) {
 					finalLoc = new Location(finalLoc, direction2);
 				}
-			} else {
+			} else if (optimalPrime != null) {
 				for (int i = 0; i < travelDistance; i++) {
 					finalLoc = new Location(finalLoc, optimalPrime);
 				}
@@ -224,7 +224,7 @@ public class CharizardAI extends AbstractAI {
 			if (Util.isValidLocation(world, finalLoc) && this.isLocationEmpty(world, hero, finalLoc)) {
 				return new MoveCommand(hero, finalLoc);
 			} else {
-				//FIX CASTING
+				// FIX CASTING
 				return new MoveCommand(hero, Util.getRandomEmptyAdjacentLocation((World) world, hero.getLocation()));
 			}
 		}
