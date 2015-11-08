@@ -17,6 +17,7 @@ import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
 import ca.ubc.ece.cpen221.mp4.items.*;
 import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
+import ca.ubc.ece.cpen221.mp4.vehicles.ArenaVehicle;
 
 public class ArenaAnimalAI implements AI {
 	private int energy;
@@ -39,7 +40,7 @@ public class ArenaAnimalAI implements AI {
 		}
 		return true;
 	}
-	
+
 	public boolean isLocationEmpty(ArenaWorld world, ArenaHero hero, Location location) {
 		if (!Util.isValidLocation(world, location)) {
 			return false;
@@ -78,7 +79,7 @@ public class ArenaAnimalAI implements AI {
 
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaHero hero) {
-		
+
 		Direction dir = Util.getRandomDirection();
 		Location targetLocation = new Location(hero.getLocation(), dir);
 		Set<Item> possibleEats = world.searchSurroundings(hero);
@@ -89,12 +90,17 @@ public class ArenaAnimalAI implements AI {
 			if ((item.getName().equals("Gnat") || item.getName().equals("Rabbit"))
 					&& (current.getDistance(item.getLocation()) == 1)) {
 				return new EatCommand(hero, item); // arena heros eat gnats
-														// and rabbits by default
+													// and rabbits by default
 			}
 		}
 		if (Util.isValidLocation(world, targetLocation) && this.isLocationEmpty(world, hero, targetLocation)) {
 			return new MoveCommand(hero, targetLocation);
 		}
+		return new WaitCommand();
+	}
+
+	@Override
+	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
 		return new WaitCommand();
 	}
 

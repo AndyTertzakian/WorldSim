@@ -62,12 +62,18 @@ public class Main {
 	}
 
 	public void initialize(World world) {
+		int numParticipants = 9;
+		int[] orderToBeAdded = new int[numParticipants];
 		addGrass(world);
 		addWater(world);
 		world.addActor(new Gardener());
 		world.addActor(new Rain());
 		world.addActor(new Merlin());
-
+		
+//		for(int i = 0; i < numParticipants; i++) {
+//			orderToBeAdded[i] = 
+//		}
+		
 		addVader(world);
 		addCharizard(world);
 		addGnats(world);

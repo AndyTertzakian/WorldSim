@@ -18,6 +18,7 @@ import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
 //import ca.ubc.ece.cpen221.mp4.items.humans.*;
+import ca.ubc.ece.cpen221.mp4.vehicles.ArenaVehicle;
 
 /**
  * The implementation of the {@link World}.
@@ -124,6 +125,12 @@ public class WorldImpl implements World {
 	}
 
 	@Override
+	public Set<Item> searchSurroundings(ArenaVehicle vehicle) {
+		return searchSurroundings(vehicle.getLocation(), vehicle.getViewRange());
+	}
+
+	
+	@Override
 	public Set<Item> searchSurroundings(Location loc, int range) {
 		Set<Item> result = new HashSet<Item>();
 		for (Item item : items) {
@@ -143,5 +150,4 @@ public class WorldImpl implements World {
 	public int getHeight() {
 		return height;
 	}
-
 }

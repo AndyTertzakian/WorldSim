@@ -5,6 +5,7 @@ import java.util.Set;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
+import ca.ubc.ece.cpen221.mp4.vehicles.ArenaVehicle;
 
 /**
  * Subset of the world visible to {@link ArenaAnimal}s.
@@ -24,6 +25,8 @@ public interface ArenaWorld {
 	Set<Item> searchSurroundings(ArenaAnimal animal);
 	
 	Set<Item> searchSurroundings(ArenaHero hero);
+	
+	Set<Item> searchSurroundings(ArenaVehicle vehicle);
 
 	/**
 	 * @return an int representing the number of columns this World has

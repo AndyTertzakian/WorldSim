@@ -4,6 +4,7 @@ import ca.ubc.ece.cpen221.mp4.ArenaWorld;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
+import ca.ubc.ece.cpen221.mp4.vehicles.ArenaVehicle;
 
 /**
  * The AI interface for all animal AIs. Your implementations of FoxAI and
@@ -24,5 +25,7 @@ public interface AI {
 	Command getNextAction(ArenaWorld world, ArenaAnimal animal);
 	
 	Command getNextAction(ArenaWorld world, ArenaHero hero);
+	
+	Command getNextAction(ArenaWorld world, ArenaVehicle vehicle);
 
 }
