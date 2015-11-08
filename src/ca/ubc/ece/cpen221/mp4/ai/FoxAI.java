@@ -20,7 +20,7 @@ import ca.ubc.ece.cpen221.mp4.items.animals.*;
  * Your Fox AI.
  */
 public class FoxAI extends AbstractAI {
-	
+
 	public FoxAI() {
 
 	}
@@ -60,33 +60,48 @@ public class FoxAI extends AbstractAI {
 				}
 			}
 		}
-		
-		if (!Util.isLocationEmpty((World) world, northLoc) && !Util.isLocationEmpty((World) world, southLoc)
-				&& !Util.isLocationEmpty((World) world, eastLoc) && !Util.isLocationEmpty((World) world, westLoc)) {
+
+		if (!this.isLocationEmpty(world, animal, northLoc) && !this.isLocationEmpty(world, animal, southLoc)
+				&& !this.isLocationEmpty(world, animal, eastLoc) && !this.isLocationEmpty(world, animal, westLoc)) {
 			return new WaitCommand();
 		}
 
 		if (numRabbits > 2 && animal.getEnergy() >= 100) {
-			return new BreedCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
+			Direction randDir = Util.getRandomDirection();
+			Location randLoc = new Location(animal.getLocation(), randDir);
+			while(!this.isLocationEmpty(world, animal, randLoc)) {
+				randDir = Util.getRandomDirection();
+				randLoc = new Location(animal.getLocation(), randDir);
+			}
+			return new BreedCommand(animal, randLoc);
+			//return new BreedCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 		}
 
 		if (northDistance < southDistance && northDistance < eastDistance && northDistance < westDistance) {
-			if (Util.isLocationEmpty((World) world, northLoc)) {
+			if (this.isLocationEmpty(world, animal, northLoc)) {
 				return new MoveCommand(animal, northLoc);
 			}
 		} else if (southDistance < eastDistance && southDistance < westDistance) {
-			if (Util.isLocationEmpty((World) world, southLoc)) {
+			if (this.isLocationEmpty(world, animal, southLoc)) {
 				return new MoveCommand(animal, southLoc);
 			}
 		} else if (eastDistance < westDistance) {
-			if (Util.isLocationEmpty((World) world, eastLoc)) {
+			if (this.isLocationEmpty(world, animal, eastLoc)) {
 				return new MoveCommand(animal, eastLoc);
 			}
-		} else if (westDistance < northDistance && Util.isLocationEmpty((World) world, westLoc)) {
+		} else if (westDistance < northDistance && this.isLocationEmpty(world, animal,westLoc)) {
 			return new MoveCommand(animal, westLoc);
 		}
-
-		return new MoveCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
+		
+		Direction randDir = Util.getRandomDirection();
+		Location randLoc = new Location(animal.getLocation(), randDir);
+		while(!this.isLocationEmpty(world, animal, randLoc)) {
+			randDir = Util.getRandomDirection();
+			randLoc = new Location(animal.getLocation(), randDir);
+		}
+		
+		return new MoveCommand(animal, randLoc);
+		//return new MoveCommand(animal, Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 	}
 
 }

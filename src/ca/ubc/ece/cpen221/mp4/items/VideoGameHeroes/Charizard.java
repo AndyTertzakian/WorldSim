@@ -1,4 +1,4 @@
-package ca.ubc.ece.cpen221.mp4.items.animals;
+package ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes;
 
 import javax.swing.ImageIcon;
 
@@ -10,12 +10,12 @@ import ca.ubc.ece.cpen221.mp4.ai.AI;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.items.LivingItem;
 
-public class Charizard implements ArenaAnimal {
-	private static final int INITIAL_ENERGY = 800;
-	private static final int MAX_ENERGY = 1000;
+public class Charizard implements ArenaHero {
+	private static final int INITIAL_ENERGY = 100;
+	private static final int MAX_ENERGY = 150;
 	private static final int STRENGTH = 200;
 	private static final int VIEW_RANGE = 10;
-	private static final int MIN_BREEDING_ENERGY = 1000;
+	private static final int MIN_BREEDING_ENERGY = 150;
 	private static final int COOLDOWN = 10;
 	private static final ImageIcon charizardImage = Util.loadImage("charizard.gif");
 

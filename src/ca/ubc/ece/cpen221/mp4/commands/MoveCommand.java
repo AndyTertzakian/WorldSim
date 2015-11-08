@@ -4,6 +4,7 @@ import ca.ubc.ece.cpen221.mp4.Location;
 import ca.ubc.ece.cpen221.mp4.Util;
 import ca.ubc.ece.cpen221.mp4.World;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.Pacman;
 
 /**
  * A MoveCommand is a {@link Command} which represents a {@link MovableItem}
@@ -37,10 +38,13 @@ public final class MoveCommand implements Command {
 		if (item.isDead()) {
 			return;
 		}
+	
 		if (!Util.isValidLocation(world, targetLocation) || !Util.isLocationEmpty(world, targetLocation)) {
+			System.out.println(this.item.toString());
 			throw new InvalidCommandException("Invalid MoveCommand: Invalid/non-empty target location");
 		}
 		if (item.getMovingRange() < targetLocation.getDistance(item.getLocation())) {
+			System.out.println(this.item.toString());
 			throw new InvalidCommandException("Invalid MoveCommand: Target location farther than moving range");
 		}
 
