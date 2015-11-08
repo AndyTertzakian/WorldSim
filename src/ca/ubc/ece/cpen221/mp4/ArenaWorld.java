@@ -3,6 +3,7 @@ package ca.ubc.ece.cpen221.mp4;
 import java.util.Set;
 
 import ca.ubc.ece.cpen221.mp4.items.Item;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
 
 /**
@@ -21,6 +22,8 @@ public interface ArenaWorld {
 	 * @return a set of items visible to <code>animal</code>
 	 */
 	Set<Item> searchSurroundings(ArenaAnimal animal);
+	
+	Set<Item> searchSurroundings(ArenaHero hero);
 
 	/**
 	 * @return an int representing the number of columns this World has

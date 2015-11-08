@@ -54,7 +54,7 @@ public class Albatross implements ArenaAnimal {
 	@Override
 	public void eat(Food food) {
 		// Note that energy does not exceed energy limit.
-		energy = Math.min(MAX_ENERGY, energy + food.getMeatCalories());
+		energy = Math.min(MAX_ENERGY, energy + food.getMeatCalories() + food.getPlantCalories());
 	}
 
 	@Override

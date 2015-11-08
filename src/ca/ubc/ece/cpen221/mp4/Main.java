@@ -9,6 +9,7 @@ import ca.ubc.ece.cpen221.mp4.items.Merlin;
 import ca.ubc.ece.cpen221.mp4.items.Rain;
 import ca.ubc.ece.cpen221.mp4.items.Water;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.*;
 import ca.ubc.ece.cpen221.mp4.staff.WorldImpl;
 import ca.ubc.ece.cpen221.mp4.staff.WorldUI;
 
@@ -35,6 +36,8 @@ public class Main {
 	static final int INITIAL_PLATYPUSSES = INITIAL_GRASS / 20;
 	static final int INITIAL_ALBATROSS = INITIAL_GRASS / 50;
 	static final int INITIAL_CHARIZARD = 1;
+	static final int INITIAL_PACMAN = 1;
+	static final int INITIAL_VADER = 1;
 	static final int INITIAL_CARS = INITIAL_GRASS / 100;
 	static final int INITIAL_TRUCKS = INITIAL_GRASS / 150;
 	static final int INITIAL_MOTORCYCLES = INITIAL_GRASS / 64;
@@ -64,12 +67,14 @@ public class Main {
 		world.addActor(new Rain());
 		world.addActor(new Merlin());
 
+		//addVader(world);
+		addCharizard(world);
 		addGnats(world);
 		addRabbits(world);
 		addFoxes(world);
 		addPlatypusses(world);
-		addAlbatross(world);
-		addCharizard(world);
+		addAlbatross(world);	
+		addPacman(world);
 	}
 
 	private void addGrass(World world) {
@@ -142,6 +147,26 @@ public class Main {
 			Charizard charizard = new Charizard(charizardAI, loc);
 			world.addItem(charizard);
 			world.addActor(charizard);
+		}
+	}
+	
+	private void addPacman(World world){
+		PacmanAI pacmanAI = new PacmanAI();
+		for(int i = 0; i < INITIAL_PACMAN; i++){
+			Location loc = Util.getRandomEmptyLocation(world);
+			Pacman pacman = new Pacman(pacmanAI, loc);
+			world.addItem(pacman);
+			world.addActor(pacman);
+		}
+	}
+	
+	private void addVader(World world){
+		VaderAI vaderAI = new VaderAI();
+		for(int i = 0; i < INITIAL_VADER; i++){
+			Location loc = Util.getRandomEmptyLocation(world);
+			DarthVader darthVader = new DarthVader(vaderAI, loc);
+			world.addItem(darthVader);
+			world.addActor(darthVader);
 		}
 	}
 }

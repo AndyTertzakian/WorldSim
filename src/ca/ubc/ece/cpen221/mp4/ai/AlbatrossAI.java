@@ -40,10 +40,12 @@ public class AlbatrossAI extends AbstractAI {
 		Map<Direction, Integer> directions = new HashMap<Direction, Integer>();
 
 		for (Item i : surroundingsList) {
-			if (i.getLocation().getDistance(animal.getLocation()) <= animal.getViewRange()) {
-				totalDistance += i.getLocation().getDistance(animal.getLocation());
-				numItems++;
-			}
+
+			int distance = i.getLocation().getDistance(animal.getLocation());
+
+			totalDistance += distance;
+			numItems++;
+
 			Direction direction = Util.getDirectionTowards(animal.getLocation(), i.getLocation());
 			surroundingsMap.put(i, i.getLocation().getDistance(animal.getLocation()));
 			if (i.getName().equals("Fox")) {
@@ -58,9 +60,9 @@ public class AlbatrossAI extends AbstractAI {
 				} else {
 					west += 3;
 				}
-			}
-			if (i.getName().equals("Platypus")) {
-				if (i.getLocation().getDistance(animal.getLocation()) == 1) {
+
+			} else if (i.getName().equals("Platypus")) {
+				if (distance == 1) {
 					nextEatPlat = i;
 				} else if (direction.toString().equals("NORTH")) {
 					north += 2;
@@ -71,9 +73,9 @@ public class AlbatrossAI extends AbstractAI {
 				} else {
 					west += 2;
 				}
-			}
-			if (i.getName().equals("water")) {
-				if (i.getLocation().getDistance(animal.getLocation()) == 1) {
+
+			} else if (i.getName().equals("water")) {
+				if (distance == 1) {
 					nextEatWater = i;
 				} else if (direction.toString().equals("NORTH")) {
 					north += 1;
@@ -144,9 +146,14 @@ public class AlbatrossAI extends AbstractAI {
 			int x;
 			int y;
 			Location finalLoc = animal.getLocation();
+			Double distRatio;
 
 			if (optimal == null) {
-				Double distRatio = (double) (distance1 / (distance1 + distance2));
+				if (distance1 + distance2 != 0.0) {
+					distRatio = (double) (distance1 / (distance1 + distance2));
+				} else {
+					distRatio = 1.0;
+				}
 				if (direction1.equals(Direction.WEST) || direction1.equals(Direction.EAST)) {
 					Double xVal = travelDistance * distRatio;
 					if (animal.getLocation().getX() + xVal.intValue() > world.getWidth()
@@ -204,8 +211,10 @@ public class AlbatrossAI extends AbstractAI {
 			}
 
 			if (Util.isValidLocation(world, finalLoc) && this.isLocationEmpty(world, animal, finalLoc)) {
+
 				return new MoveCommand(animal, finalLoc);
 			} else {
+				// FIX CASTING
 				return new MoveCommand(animal,
 						Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 			}
