@@ -2,6 +2,7 @@ package ca.ubc.ece.cpen221.mp4.ai;
 
 import ca.ubc.ece.cpen221.mp4.ArenaWorld;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
 
 /**
@@ -21,5 +22,7 @@ public interface AI {
 	 * @return the next action for animal
 	 */
 	Command getNextAction(ArenaWorld world, ArenaAnimal animal);
+	
+	Command getNextAction(ArenaWorld world, ArenaHero hero);
 
 }

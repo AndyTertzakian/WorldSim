@@ -11,6 +11,8 @@ import ca.ubc.ece.cpen221.mp4.commands.EatCommand;
 import ca.ubc.ece.cpen221.mp4.commands.MoveCommand;
 import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
 import ca.ubc.ece.cpen221.mp4.items.Item;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.Pacman;
 import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
 
 public class PacmanAI extends AbstractAI {
@@ -24,41 +26,41 @@ public class PacmanAI extends AbstractAI {
 	}
 
 	@Override
-	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
+	public Command getNextAction(ArenaWorld world, ArenaHero hero) {
+
 		if (previousDirection != null
-				&& !Util.isValidLocation(world, new Location(animal.getLocation(), previousDirection))) {
-			Location loc = new Location(animal.getLocation(), previousDirection);
+				&& !Util.isValidLocation(world, new Location(hero.getLocation(), previousDirection))) {
+			Location loc = new Location(hero.getLocation(), previousDirection);
 			previousDirection = null;
-			return new MoveCommand(animal, loc);
+			return new MoveCommand(hero, loc);
 		}
-		
-		if(foundFood > 7){
+
+		if (foundFood > 7) {
 			direction = Util.getRandomDirection();
 			foundFood = 0;
 		}
 
-		if (!Util.isValidLocation(world, new Location(animal.getLocation(), direction))) {
+		if (!Util.isValidLocation(world, new Location(hero.getLocation(), direction))) {
 			direction = oppositeDir(direction);
-			if(!Util.isValidLocation(world, new Location(animal.getLocation(), direction))){
+			if (!Util.isValidLocation(world, new Location(hero.getLocation(), direction))) {
 				return new WaitCommand();
 			}
 		}
 
-		Set<Item> surroundings = world.searchSurroundings(animal);
+		Set<Item> surroundings = world.searchSurroundings(hero);
 
 		for (Item i : surroundings) {
-			if (Util.getDirectionTowards(animal.getLocation(), i.getLocation()).equals(direction)
-					&& !i.equals(animal)) {
+			if (Util.getDirectionTowards(hero.getLocation(), i.getLocation()).equals(direction) && !i.equals(hero)) {
 				previousDirection = direction;
 				direction = Util.getRandomDirection();
 				foundFood = 0;
-				return new EatCommand(animal, i);
-			}else{
+				return new EatCommand(hero, i);
+			} else {
 				foundFood++;
 			}
 		}
 
-		return new MoveCommand(animal, new Location(animal.getLocation(), direction));
+		return new MoveCommand(hero, new Location(hero.getLocation(), direction));
 	}
 
 }

@@ -17,7 +17,7 @@ import ca.ubc.ece.cpen221.mp4.items.LivingItem;
  * random directions.
  */
 public class Gnat implements LivingItem {
-	private static final ImageIcon gnatImage = Util.loadImage("gnat.gif");
+	private static final ImageIcon gnatImage = Util.loadImage("Gnat.gif");
 
 	private static final int MEAT_CALORIES = 100;
 	private static final int STRENGTH = 10;

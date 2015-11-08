@@ -40,15 +40,16 @@ public class AlbatrossAI extends AbstractAI {
 		Map<Direction, Integer> directions = new HashMap<Direction, Integer>();
 
 		for (Item i : surroundingsList) {
+
 			int distance = i.getLocation().getDistance(animal.getLocation());
 
 			totalDistance += distance;
 			numItems++;
 
 			Direction direction = Util.getDirectionTowards(animal.getLocation(), i.getLocation());
-			surroundingsMap.put(i, distance);
+			surroundingsMap.put(i, i.getLocation().getDistance(animal.getLocation()));
 			if (i.getName().equals("Fox")) {
-				if (distance == 1) {
+				if (i.getLocation().getDistance(animal.getLocation()) == 1) {
 					nextEatFox = i;
 				} else if (direction.toString().equals("NORTH")) {
 					north += 3;
@@ -59,6 +60,7 @@ public class AlbatrossAI extends AbstractAI {
 				} else {
 					west += 3;
 				}
+
 			} else if (i.getName().equals("Platypus")) {
 				if (distance == 1) {
 					nextEatPlat = i;
@@ -71,6 +73,7 @@ public class AlbatrossAI extends AbstractAI {
 				} else {
 					west += 2;
 				}
+
 			} else if (i.getName().equals("water")) {
 				if (distance == 1) {
 					nextEatWater = i;
@@ -143,9 +146,14 @@ public class AlbatrossAI extends AbstractAI {
 			int x;
 			int y;
 			Location finalLoc = animal.getLocation();
+			Double distRatio;
 
 			if (optimal == null) {
-				Double distRatio = (double) (distance1 / (distance1 + distance2));
+				if (distance1 + distance2 != 0.0) {
+					distRatio = (double) (distance1 / (distance1 + distance2));
+				} else {
+					distRatio = 1.0;
+				}
 				if (direction1.equals(Direction.WEST) || direction1.equals(Direction.EAST)) {
 					Double xVal = travelDistance * distRatio;
 					if (animal.getLocation().getX() + xVal.intValue() > world.getWidth()
@@ -202,9 +210,11 @@ public class AlbatrossAI extends AbstractAI {
 				}
 			}
 
-			if (Util.isValidLocation(world, finalLoc) && Util.isLocationEmpty((World) world, finalLoc)) {
+			if (Util.isValidLocation(world, finalLoc) && this.isLocationEmpty(world, animal, finalLoc)) {
+
 				return new MoveCommand(animal, finalLoc);
 			} else {
+				// FIX CASTING
 				return new MoveCommand(animal,
 						Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 			}

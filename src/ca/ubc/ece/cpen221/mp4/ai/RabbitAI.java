@@ -85,7 +85,7 @@ public class RabbitAI extends AbstractAI {
 		if (foxFound) {
 			foxAvgs = getAverageDists(locations, surroundings, "fox");
 			nextMoveLocation = getMaxDistLocation(foxAvgs);
-			if (nextMoveLocation != null && minFoxCoolDown <= 1 || closestFoxDist < 2)
+			if (nextMoveLocation != null && minFoxCoolDown <= 2 || closestFoxDist < 2)
 				return new MoveCommand(animal, nextMoveLocation);
 			if (animal.getEnergy() >= animal.getMaxEnergy() - 10)
 				return new BreedCommand(animal, nextMoveLocation);
@@ -95,7 +95,7 @@ public class RabbitAI extends AbstractAI {
 			grassAvgs = getAverageDists(locations, surroundings, "grass");
 			nextMoveLocation = getMinDistLocation(grassAvgs);
 
-			if (animal.getEnergy() >= animal.getMaxEnergy() - 10)
+			if (animal.getEnergy() >= animal.getMaxEnergy() - 5)
 				return new BreedCommand(animal, nextMoveLocation);
 			if (nextEat != null && animal.getEnergy() <= 45)
 				return new EatCommand(animal, nextEat);

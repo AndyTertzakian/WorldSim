@@ -15,6 +15,7 @@ import ca.ubc.ece.cpen221.mp4.commands.EatCommand;
 import ca.ubc.ece.cpen221.mp4.commands.MoveCommand;
 import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
 import ca.ubc.ece.cpen221.mp4.items.Item;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.animals.*;
 
 public class AbstractAI implements AI {
@@ -52,8 +53,33 @@ public class AbstractAI implements AI {
 		return true;
 	}
 
+	public boolean isLocationEmpty(ArenaWorld world, ArenaHero hero, Location location) { // returns
+		// true
+		// if
+		// location
+		// is
+		// empty
+		if (!Util.isValidLocation(world, location)) {
+			return false;
+		}
+		Set<Item> possibleMoves = world.searchSurroundings(hero);
+		Iterator<Item> it = possibleMoves.iterator();
+		while (it.hasNext()) {
+			Item item = it.next();
+			if (item.getLocation().equals(location)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
+		return new WaitCommand();
+	}
+
+	@Override
+	public Command getNextAction(ArenaWorld world, ArenaHero hero) {
 		return new WaitCommand();
 	}
 }
