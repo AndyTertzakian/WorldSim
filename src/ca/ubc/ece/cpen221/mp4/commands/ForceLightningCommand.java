@@ -22,6 +22,7 @@ public class ForceLightningCommand implements Command {
 
 	@Override
 	public void execute(World world) throws InvalidCommandException {
+
 		ArrayList<Direction> directions = new ArrayList<Direction>();
 		Set<Item> surroundings = world.searchSurroundings(livingItem);
 		directions.add(Direction.NORTH);
@@ -29,16 +30,16 @@ public class ForceLightningCommand implements Command {
 		directions.add(Direction.EAST);
 		directions.add(Direction.WEST);
 		Location loc;
-		
-		for(Direction d : directions){
+
+		for (Direction d : directions) {
 			loc = new Location(livingItem.getLocation(), d);
-			while(Util.isLocationEmpty(world, loc) && Util.isValidLocation(world, loc)){
+			while (Util.isLocationEmpty(world, loc) && Util.isValidLocation(world, loc)) {
 				world.addItem(new ForceLightning(loc, d));
 				loc = new Location(loc, d);
 			}
-			
-			for(Item i : surroundings){
-				if(i.getLocation().equals(loc)){
+
+			for (Item i : surroundings) {
+				if (i.getLocation().equals(loc)) {
 					i.loseEnergy(Integer.MAX_VALUE);
 				}
 			}

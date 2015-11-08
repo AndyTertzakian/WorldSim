@@ -154,6 +154,7 @@ public class AlbatrossAI extends AbstractAI {
 				} else {
 					distRatio = 1.0;
 				}
+
 				if (direction1.equals(Direction.WEST) || direction1.equals(Direction.EAST)) {
 					Double xVal = travelDistance * distRatio;
 					if (animal.getLocation().getX() + xVal.intValue() > world.getWidth()
@@ -204,14 +205,13 @@ public class AlbatrossAI extends AbstractAI {
 				for (int i = 0; i < y; i++) {
 					finalLoc = new Location(finalLoc, direction2);
 				}
-			} else {
+			} else if (optimal != null) {
 				for (int i = 0; i < travelDistance; i++) {
 					finalLoc = new Location(finalLoc, optimal);
 				}
 			}
 
 			if (Util.isValidLocation(world, finalLoc) && this.isLocationEmpty(world, animal, finalLoc)) {
-
 				return new MoveCommand(animal, finalLoc);
 			} else {
 				// FIX CASTING

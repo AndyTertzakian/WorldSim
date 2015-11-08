@@ -86,6 +86,7 @@ public class Main {
 	
 	private void addWater(World world){
 		for(int i = 0; i < INITIAL_WATER; i++){
+			
 			Location loc = Util.getRandomEmptyLocation(world);
 			world.addItem(new Water(loc));
 		}
