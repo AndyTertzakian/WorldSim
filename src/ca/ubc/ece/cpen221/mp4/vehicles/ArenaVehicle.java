@@ -8,8 +8,8 @@ public interface ArenaVehicle extends MoveableItem{
 	int getSpeed();
 	
 	int getStrength();
-	
-	int getMomentum();
 
 	int getMovingRange(int speed);
+
+	int getAcceleration();
 }
