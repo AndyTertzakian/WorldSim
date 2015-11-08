@@ -117,7 +117,6 @@ public class Charizard implements ArenaHero {
 	@Override
 	public Command getNextAction(World world) {
 		Command nextAction = ai.getNextAction(world, this);
-		this.energy--; // Loses 1 energy regardless of action.
 		return nextAction;
 	}
 
