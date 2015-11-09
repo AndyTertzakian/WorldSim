@@ -7,20 +7,19 @@ import ca.ubc.ece.cpen221.mp4.Location;
 import ca.ubc.ece.cpen221.mp4.Util;
 import ca.ubc.ece.cpen221.mp4.World;
 import ca.ubc.ece.cpen221.mp4.ai.AI;
-
-import ca.ubc.ece.cpen221.mp4.ai.DumpTruckAI;
+import ca.ubc.ece.cpen221.mp4.ai.AstonAI;
 import ca.ubc.ece.cpen221.mp4.commands.Command;
 import ca.ubc.ece.cpen221.mp4.items.LivingItem;
 
-public class DumpTruck implements ArenaVehicle {
-	private static final int INITIAL_SPEED = 20;
-	private static final int TURNING_SPEED = 20;
+public class Aston implements ArenaVehicle {
+	private static final int INITIAL_SPEED = 16;
+	private static final int TURNING_SPEED = 10;
 	private static final int ACCELERATION = 2;
-	private static final int MAX_SPEED = 5;
-	private static final int STRENGTH = 500;
+	private static final int MAX_SPEED = 2;
+	private static final int STRENGTH = 300;
 	private static final int VIEW_RANGE = 5;
-	private static final int DISTANCE_TO_CRASH = 4;
-	private static final ImageIcon dumpTruckImage = Util.loadImage("trucks.gif");
+	private static final int DISTANCE_TO_CRASH = 3;
+	private static final ImageIcon astonImage = Util.loadImage("Aston.gif");
 
 	private final AI ai;
 
@@ -28,7 +27,7 @@ public class DumpTruck implements ArenaVehicle {
 	private Location location;
 	private boolean isDead;
 
-	public DumpTruck(DumpTruckAI ai, Location initialLocation) {
+	public Aston(AstonAI ai, Location initialLocation) {
 		this.ai = ai;
 		this.location = initialLocation;
 		isDead = false;
@@ -66,12 +65,12 @@ public class DumpTruck implements ArenaVehicle {
 
 	@Override
 	public ImageIcon getImage() {
-		return dumpTruckImage;
+		return astonImage;
 	}
 
 	@Override
 	public String getName() {
-		return "DumpTruck";
+		return "Aston";
 	}
 
 	@Override

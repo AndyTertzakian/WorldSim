@@ -4,11 +4,17 @@ import ca.ubc.ece.cpen221.mp4.Location;
 import ca.ubc.ece.cpen221.mp4.items.LivingItem;
 import ca.ubc.ece.cpen221.mp4.items.MoveableItem;
 
-public interface ArenaVehicle extends LivingItem{
-	
-	int getSpeed();
+public interface ArenaVehicle extends LivingItem {
 
-	int getMovingRange(int speed);
+	int getSpeed();
+	
+	int getTurningSpeed();
+	
+	int getViewRange();
+	
+	void updateSpeed(boolean speedUp);
 
 	int getAcceleration();
+	
+	int getDistanceToCrash();
 }

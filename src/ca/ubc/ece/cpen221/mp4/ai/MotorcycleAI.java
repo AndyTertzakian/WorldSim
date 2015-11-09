@@ -4,17 +4,21 @@ import ca.ubc.ece.cpen221.mp4.ArenaWorld;
 import ca.ubc.ece.cpen221.mp4.Direction;
 import ca.ubc.ece.cpen221.mp4.Location;
 import ca.ubc.ece.cpen221.mp4.Util;
-import ca.ubc.ece.cpen221.mp4.commands.*;
+import ca.ubc.ece.cpen221.mp4.commands.Command;
+import ca.ubc.ece.cpen221.mp4.commands.CrashCommand;
+import ca.ubc.ece.cpen221.mp4.commands.MoveCommand;
 import ca.ubc.ece.cpen221.mp4.items.Item;
+import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
+import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
 import ca.ubc.ece.cpen221.mp4.vehicles.ArenaVehicle;
 
-public class AstonAI extends AbstractAI {
+public class MotorcycleAI extends AbstractAI {
 
 	private Direction direction;
 	private boolean speedUp;
 	private int turnCounter;
 
-	public AstonAI() {
+	public MotorcycleAI() {
 		this.direction = Util.getRandomDirection();
 		this.speedUp = true;
 		this.turnCounter = 0;
@@ -34,7 +38,7 @@ public class AstonAI extends AbstractAI {
 			nextLocation = new Location(nextLocation, direction);
 		}
 
-		if (counter <= vehicle.getDistanceToCrash() || turnCounter > 15) {
+		if (counter <= vehicle.getDistanceToCrash() || turnCounter > 12) {
 			speedUp = false;
 		} else {
 			speedUp = true;
@@ -74,6 +78,8 @@ public class AstonAI extends AbstractAI {
 				&& vehicle.getSpeed() < vehicle.getTurningSpeed()) {
 			return new CrashCommand(vehicle);
 		}
+
+		System.out.println("speed: " + vehicle.getSpeed());
 
 		vehicle.updateSpeed(speedUp);
 		return new MoveCommand(vehicle, new Location(location, direction));

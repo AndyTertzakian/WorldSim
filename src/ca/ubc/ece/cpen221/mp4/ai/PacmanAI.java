@@ -28,11 +28,14 @@ public class PacmanAI extends AbstractAI {
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaHero hero) {
 
+		Location loc;
+
 		if (previousDirection != null
-				&& !Util.isValidLocation(world, new Location(hero.getLocation(), previousDirection))) {
-			Location loc = new Location(hero.getLocation(), previousDirection);
+				&& Util.isValidLocation(world, new Location(hero.getLocation(), previousDirection))) {
+			loc = new Location(hero.getLocation(), previousDirection);
 			previousDirection = null;
-			return new MoveCommand(hero, loc);
+			if (Util.isValidLocation(world, loc))
+				return new MoveCommand(hero, loc);
 		}
 
 		if (foundFood > 7) {
@@ -60,7 +63,12 @@ public class PacmanAI extends AbstractAI {
 			}
 		}
 
-		return new MoveCommand(hero, new Location(hero.getLocation(), direction));
+		loc = new Location(hero.getLocation(), direction);
+		if (Util.isValidLocation(world, loc))
+			return new MoveCommand(hero, loc);
+		else {
+			return new WaitCommand();
+		}
 	}
 
 }

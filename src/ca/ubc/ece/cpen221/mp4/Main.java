@@ -12,6 +12,9 @@ import ca.ubc.ece.cpen221.mp4.items.animals.*;
 import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.*;
 import ca.ubc.ece.cpen221.mp4.staff.WorldImpl;
 import ca.ubc.ece.cpen221.mp4.staff.WorldUI;
+import ca.ubc.ece.cpen221.mp4.vehicles.Aston;
+import ca.ubc.ece.cpen221.mp4.vehicles.DumpTruck;
+import ca.ubc.ece.cpen221.mp4.vehicles.Motorcycle;
 
 /**
  * The Main class initialize a world with some {@link Grass}, {@link Rabbit}s,
@@ -41,10 +44,12 @@ public class Main {
 	static final int INITIAL_VADER = 1;
 	static final int INITIAL_CARS = INITIAL_GRASS / 100;
 	static final int INITIAL_TRUCKS = INITIAL_GRASS / 150;
-	static final int INITIAL_MOTORCYCLES = INITIAL_GRASS / 64;
+	static final int INITIAL_MOTORCYCLES = 1;
 	static final int INITIAL_MANS = INITIAL_GRASS / 150;
 	static final int INITIAL_WOMANS = INITIAL_GRASS / 100;
 	static final int INITIAL_HUNTERS = INITIAL_GRASS / 150;
+	static final int INITIAL_DUMP_TRUCKS = 2;
+	static final int INITIAL_ASTONS = 1;
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {
@@ -68,19 +73,22 @@ public class Main {
 		addWater(world);
 		world.addActor(new Gardener());
 		world.addActor(new Rain());
-		world.addActor(new Merlin());
-		
-//		for(int i = 0; i < numParticipants; i++) {
-//			orderToBeAdded[i] = 
-//		}
-		
+		// world.addActor(new Merlin());
+
+		// for(int i = 0; i < numParticipants; i++) {
+		// orderToBeAdded[i] =
+		// }
+
+		addDump(world);
 		addVader(world);
 		addCharizard(world);
 		addGnats(world);
+		addAston(world);
+		addMotorcycles(world);
 		addRabbits(world);
 		addFoxes(world);
 		addPlatypusses(world);
-		addAlbatross(world);	
+		addAlbatross(world);
 		addPacman(world);
 		addFrogs(world);
 	}
@@ -91,10 +99,10 @@ public class Main {
 			world.addItem(new Grass(loc));
 		}
 	}
-	
-	private void addWater(World world){
-		for(int i = 0; i < INITIAL_WATER; i++){
-			
+
+	private void addWater(World world) {
+		for (int i = 0; i < INITIAL_WATER; i++) {
+
 			Location loc = Util.getRandomEmptyLocation(world);
 			world.addItem(new Water(loc));
 		}
@@ -118,10 +126,10 @@ public class Main {
 			world.addActor(fox);
 		}
 	}
-	
-	private void addAlbatross(World world){
+
+	private void addAlbatross(World world) {
 		AlbatrossAI albatrossAI = new AlbatrossAI();
-		for(int i = 0; i < INITIAL_ALBATROSS; i++){
+		for (int i = 0; i < INITIAL_ALBATROSS; i++) {
 			Location loc = Util.getRandomEmptyLocation(world);
 			Albatross albatross = new Albatross(albatrossAI, loc);
 			world.addItem(albatross);
@@ -138,54 +146,84 @@ public class Main {
 			world.addActor(rabbit);
 		}
 	}
-	
-	private void addFrogs(World world){
+
+	private void addFrogs(World world) {
 		FrogAI frogAI = new FrogAI();
-		for(int i = 0; i < INITIAL_FROGS; i++){
+		for (int i = 0; i < INITIAL_FROGS; i++) {
 			Location loc = Util.getRandomEmptyLocation(world);
 			Frog frog = new Frog(frogAI, loc);
 			world.addItem(frog);
 			world.addActor(frog);
 		}
 	}
-	
-	private void addPlatypusses(World world){
+
+	private void addPlatypusses(World world) {
 		PlatypusAI platypusAI = new PlatypusAI();
-		for(int i = 0; i < INITIAL_PLATYPUSSES; i++){
+		for (int i = 0; i < INITIAL_PLATYPUSSES; i++) {
 			Location loc = Util.getRandomEmptyLocation(world);
 			Platypus platypus = new Platypus(platypusAI, loc);
 			world.addItem(platypus);
 			world.addActor(platypus);
 		}
 	}
-	
-	private void addCharizard(World world){
+
+	private void addCharizard(World world) {
 		CharizardAI charizardAI = new CharizardAI();
-		for(int i = 0; i < INITIAL_CHARIZARD; i++){
+		for (int i = 0; i < INITIAL_CHARIZARD; i++) {
 			Location loc = Util.getRandomEmptyLocation(world);
 			Charizard charizard = new Charizard(charizardAI, loc);
 			world.addItem(charizard);
 			world.addActor(charizard);
 		}
 	}
-	
-	private void addPacman(World world){
+
+	private void addPacman(World world) {
 		PacmanAI pacmanAI = new PacmanAI();
-		for(int i = 0; i < INITIAL_PACMAN; i++){
+		for (int i = 0; i < INITIAL_PACMAN; i++) {
 			Location loc = Util.getRandomEmptyLocation(world);
 			Pacman pacman = new Pacman(pacmanAI, loc);
 			world.addItem(pacman);
 			world.addActor(pacman);
 		}
 	}
-	
-	private void addVader(World world){
+
+	private void addVader(World world) {
 		VaderAI vaderAI = new VaderAI();
-		for(int i = 0; i < INITIAL_VADER; i++){
+		for (int i = 0; i < INITIAL_VADER; i++) {
 			Location loc = Util.getRandomEmptyLocation(world);
 			DarthVader darthVader = new DarthVader(vaderAI, loc);
 			world.addItem(darthVader);
 			world.addActor(darthVader);
+		}
+	}
+
+	private void addDump(World world) {
+		DumpTruckAI dumpTruckAI = new DumpTruckAI();
+		for (int i = 0; i < INITIAL_DUMP_TRUCKS; i++) {
+			Location loc = Util.getRandomEmptyLocation(world);
+			DumpTruck dumpTruck = new DumpTruck(dumpTruckAI, loc);
+			world.addItem(dumpTruck);
+			world.addActor(dumpTruck);
+		}
+	}
+
+	private void addAston(World world) {
+		AstonAI astonAI = new AstonAI();
+		for (int i = 0; i < INITIAL_ASTONS; i++) {
+			Location loc = Util.getRandomEmptyLocation(world);
+			Aston aston = new Aston(astonAI, loc);
+			world.addItem(aston);
+			world.addActor(aston);
+		}
+	}
+
+	private void addMotorcycles(World world) {
+		MotorcycleAI cycleAI = new MotorcycleAI();
+		for (int i = 0; i < INITIAL_MOTORCYCLES; i++) {
+			Location loc = Util.getRandomEmptyLocation(world);
+			Motorcycle cycle = new Motorcycle(cycleAI, loc);
+			world.addItem(cycle);
+			world.addActor(cycle);
 		}
 	}
 }

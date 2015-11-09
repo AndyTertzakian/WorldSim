@@ -125,12 +125,6 @@ public class WorldImpl implements World {
 	}
 
 	@Override
-	public Set<Item> searchSurroundings(ArenaVehicle vehicle) {
-		return searchSurroundings(vehicle.getLocation(), vehicle.getViewRange());
-	}
-
-	
-	@Override
 	public Set<Item> searchSurroundings(Location loc, int range) {
 		Set<Item> result = new HashSet<Item>();
 		for (Item item : items) {
@@ -149,5 +143,10 @@ public class WorldImpl implements World {
 	@Override
 	public int getHeight() {
 		return height;
+	}
+
+	@Override
+	public Set<Item> searchSurroundings(ArenaVehicle vehicle) {
+		return searchSurroundings(vehicle.getLocation(), vehicle.getViewRange());
 	}
 }

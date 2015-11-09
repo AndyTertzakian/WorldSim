@@ -97,7 +97,7 @@ public class RabbitAI extends AbstractAI {
 
 			if (animal.getEnergy() >= animal.getMaxEnergy() - 5)
 				return new BreedCommand(animal, nextMoveLocation);
-			if (nextEat != null && animal.getEnergy() <= 45)
+			if (nextEat != null && animal.getEnergy() <= 50)
 				return new EatCommand(animal, nextEat);
 			else if (nextMoveLocation != null)
 				return new MoveCommand(animal, nextMoveLocation);
