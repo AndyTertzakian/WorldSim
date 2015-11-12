@@ -22,6 +22,16 @@ public class PlatypusAI extends AbstractAI {
 
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param ArenaAnimal
+	 *            The ArenaAnimal which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of a Platypus. In this case, Playpuses locate, and
+	 *         move towards water in order to consume it.
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
 
@@ -36,7 +46,7 @@ public class PlatypusAI extends AbstractAI {
 		int numWater = 0;
 		HashMap<Item, Integer> surroundingsMap = new HashMap<Item, Integer>();
 		Set<Item> surroundingsList = world.searchSurroundings(animal);
-		
+
 		for (Item i : surroundingsList) {
 			surroundingsMap.put(i, i.getLocation().getDistance(animal.getLocation()));
 		}

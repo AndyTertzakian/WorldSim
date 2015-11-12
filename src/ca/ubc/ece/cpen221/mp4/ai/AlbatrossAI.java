@@ -24,6 +24,17 @@ public class AlbatrossAI extends AbstractAI {
 		prey.add("water");
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param animal
+	 *            The ArenaAnimal which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of an albatross. in this case, albatross' seek out
+	 *         playpuses and water and eat both. They prioritze playpuses over
+	 *         water.
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
 		HashMap<Item, Integer> surroundingsMap = new HashMap<Item, Integer>();
@@ -214,7 +225,6 @@ public class AlbatrossAI extends AbstractAI {
 			if (Util.isValidLocation(world, finalLoc) && this.isLocationEmpty(world, animal, finalLoc)) {
 				return new MoveCommand(animal, finalLoc);
 			} else {
-				// FIX CASTING
 				return new MoveCommand(animal,
 						Util.getRandomEmptyAdjacentLocation((World) world, animal.getLocation()));
 			}

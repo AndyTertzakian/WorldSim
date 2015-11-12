@@ -21,6 +21,18 @@ public class CharizardAI extends AbstractAI {
 
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param ArenaHero
+	 *            The ArenaHero which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of a Charizard. In this case, Charizards move to the
+	 *         most populated area before using their fire breath. If pacman is
+	 *         within their site, then they try and target him for their fire
+	 *         breath.
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaHero hero) {
 		Set<Item> surroundingsList = world.searchSurroundings(hero);
@@ -228,7 +240,6 @@ public class CharizardAI extends AbstractAI {
 			if (Util.isValidLocation(world, finalLoc) && this.isLocationEmpty(world, hero, finalLoc)) {
 				return new MoveCommand(hero, finalLoc);
 			} else {
-				// FIX CASTING
 				return new MoveCommand(hero, Util.getRandomEmptyAdjacentLocation((World) world, hero.getLocation()));
 			}
 		}

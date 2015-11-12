@@ -21,6 +21,16 @@ public class DumpTruckAI extends AbstractAI {
 		this.turnCounter = 0;
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param ArenaVehicle
+	 *            The ArenaVehicle which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of a DumpTruck. In this case, DumpTrucks change direction
+	 *         every 10 turns. They must slow down before turning.
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
 		Iterable<Item> surroundings = world.searchSurroundings(vehicle);

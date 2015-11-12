@@ -24,6 +24,16 @@ public class MotorcycleAI extends AbstractAI {
 		this.turnCounter = 0;
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param ArenaVehicle
+	 *            The ArenaVehicle which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of a Motorcycle. In this case, Motorcycles change
+	 *         direction every 12 turns. They must slow down before turning.
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
 		Iterable<Item> surroundings = world.searchSurroundings(vehicle);
@@ -78,8 +88,6 @@ public class MotorcycleAI extends AbstractAI {
 				&& vehicle.getSpeed() < vehicle.getTurningSpeed()) {
 			return new CrashCommand(vehicle);
 		}
-
-		System.out.println("speed: " + vehicle.getSpeed());
 
 		vehicle.updateSpeed(speedUp);
 		return new MoveCommand(vehicle, new Location(location, direction));

@@ -22,6 +22,17 @@ public class FrogAI extends AbstractAI {
 
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param ArenaAnimal
+	 *            The ArenaAnimal which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of a Frog. In this case, Frogs seek out and move
+	 *         towards gnats in order to eat them.
+	 * 
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaAnimal animal) {
 

@@ -89,7 +89,7 @@ public class ArenaAnimalAI implements AI {
 			Item item = it.next();
 			if ((item.getName().equals("Gnat") || item.getName().equals("Rabbit"))
 					&& (current.getDistance(item.getLocation()) == 1)) {
-				return new EatCommand(hero, item); // arena heros eat gnats
+				return new EatCommand(hero, item); // arena animals eat gnats
 													// and rabbits by default
 			}
 		}

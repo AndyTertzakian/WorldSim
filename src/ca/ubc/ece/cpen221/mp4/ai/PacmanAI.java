@@ -13,7 +13,6 @@ import ca.ubc.ece.cpen221.mp4.commands.WaitCommand;
 import ca.ubc.ece.cpen221.mp4.items.Item;
 import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.ArenaHero;
 import ca.ubc.ece.cpen221.mp4.items.VideoGameHeroes.Pacman;
-import ca.ubc.ece.cpen221.mp4.items.animals.ArenaAnimal;
 
 public class PacmanAI extends AbstractAI {
 	private Direction direction;
@@ -25,6 +24,18 @@ public class PacmanAI extends AbstractAI {
 		foundFood = 0;
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param ArenaHero
+	 *            The ArenaHero which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of a Pacman. In this case, pacmans move in the same
+	 *         direction for seven turns. If they haven't eaten anything in that
+	 *         time, they change direction and start again. They also change
+	 *         direction every time they eat
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaHero hero) {
 
@@ -34,7 +45,7 @@ public class PacmanAI extends AbstractAI {
 				&& Util.isValidLocation(world, new Location(hero.getLocation(), previousDirection))) {
 			loc = new Location(hero.getLocation(), previousDirection);
 			previousDirection = null;
-			if (Util.isValidLocation(world, loc))
+			if (Util.isValidLocation(world, loc) && isLocationEmpty(world, hero, loc))
 				return new MoveCommand(hero, loc);
 		}
 
@@ -64,7 +75,7 @@ public class PacmanAI extends AbstractAI {
 		}
 
 		loc = new Location(hero.getLocation(), direction);
-		if (Util.isValidLocation(world, loc))
+		if (Util.isValidLocation(world, loc) && isLocationEmpty(world, hero, loc))
 			return new MoveCommand(hero, loc);
 		else {
 			return new WaitCommand();

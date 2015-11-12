@@ -73,12 +73,7 @@ public class Main {
 		addWater(world);
 		world.addActor(new Gardener());
 		world.addActor(new Rain());
-		// world.addActor(new Merlin());
-
-		// for(int i = 0; i < numParticipants; i++) {
-		// orderToBeAdded[i] =
-		// }
-
+	
 		addDump(world);
 		addVader(world);
 		addCharizard(world);

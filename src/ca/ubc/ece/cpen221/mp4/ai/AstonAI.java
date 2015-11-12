@@ -10,6 +10,7 @@ import ca.ubc.ece.cpen221.mp4.vehicles.ArenaVehicle;
 
 public class AstonAI extends AbstractAI {
 
+	// The field variables for an AstonAI
 	private Direction direction;
 	private boolean speedUp;
 	private int turnCounter;
@@ -20,6 +21,16 @@ public class AstonAI extends AbstractAI {
 		this.turnCounter = 0;
 	}
 
+	/**
+	 * @param world
+	 *            The ArenaWorld in which the ArenaAnimal given this ai lives in
+	 * @param ArenaVehicle
+	 *            The ArenaVehicle which is using this ai
+	 * 
+	 * @return command The Command which is chosen based on the decided
+	 *         attributes of an Aston. In this case, Astons change direction
+	 *         every 15 turns. They must slow down before turning.
+	 */
 	@Override
 	public Command getNextAction(ArenaWorld world, ArenaVehicle vehicle) {
 		Iterable<Item> surroundings = world.searchSurroundings(vehicle);
